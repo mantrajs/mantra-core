@@ -4,6 +4,11 @@ import {
 
 export default class App {
   constructor(context) {
+    if (!context) {
+      const message = `Context is required when creating a new app.`;
+      throw new Error(message);
+    }
+
     this.context = context;
     this.actions = {};
     this._routeFns = [];
@@ -13,7 +18,7 @@ export default class App {
     this._checkForInit();
 
     if (!module) {
-      const message = `app.loadModule() should be called with a module`;
+      const message = `Should provide a module to load.`;
       throw new Error(message);
     }
 
@@ -29,7 +34,7 @@ export default class App {
 
     if (module.routes) {
       if (typeof module.routes !== 'function') {
-        const message = `Module's route field should expose a function.`;
+        const message = `Module's routes field should be a function.`;
         throw new Error(message);
       }
 
