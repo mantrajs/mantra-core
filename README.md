@@ -1,41 +1,48 @@
-# npm-base
+#mantra-base
 
-A base package for creating NPM packages with ES2015.
+Core API for Mantra.
 
----
+### Introduction
 
-Writing in ES2015 is an amazing experience. Setting up babel and the development environment in a kind of a pain.
+This repo contains the core APP api where we create an mantra app and initialize it.
 
-If you want to write a **NPM module** in ES2015 and publish to NPM with backward compatibility, this is the **easiest** way.
+Also, this package contains exported functions from both [`react-komposer`](https://github.com/kadirahq/react-komposer) and [`react-simple-di`](https://github.com/kadirahq/react-simple-di).
+That's purely for the ease of use.
 
-## Basic Usage
+### Installation
 
-* Simply clone [this](https://github.com/kadirahq/npm-base) project.
-* Change the `package.json` as you want.
-* `lib/index.js` in your entry point.
-* Then publish to npm via `npm publish`.
+```
+npm i --save mantra-base react
+```
 
-## Linting
+### App API
 
-* ESLINT support is added to the project.
-* It's configured for ES2015 and inherited configurations from [graphql/graphql-js](https://github.com/graphql/graphql-js).
-* Use `npm run lint` to lint your code and `npm run lintfix` to fix common issues.
+```js
+// Here's a simple Mantra Module
+import MyComp from './myComp';
+import {createApp} from 'mantra-core';
 
-## Testing
+const module = {
+  routes(injectDeps) {
+    const InjectedComp = injectDeps(MyComp);
+    // load routes and put `InjectedComp` to the screen.
+  },
+  load(context, actions) {
+    // do any module initialization
+  },
+  actions: {
+    myNamespace: {
+      doSomething: (context, arg1) => {}
+    }
+  }
+};
 
-* You can write test under `__test__` directory anywhere inside `lib` including sub-directories.
-* Then run `npm test` to test your code. (It'll lint your code as well).
-* You can also run `npm run testonly` to run tests without linting.
+const context = {
+  client: new DataClient()
+};
 
-## ES2015 Setup
-
-* ES2015 support is added with babel6.
-* After you publish your project to NPM, it can be run on older node versions and browsers without the support of Babel.
-* This project uses ES2015 and some of the upcoming features like `async await`.
-* You can change them with adding and removing [presets](http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/).
-* All the polyfills you use are taken from the local `babel-runtime` package. So, this package won't add any global polyfills and pollute the global namespace.
-
-## Kudos
-
-* Babel6 and the team behind it.
-* Facebook's [graphql-js](https://github.com/graphql/graphql-js) authors for ESLint configurations and for the directory structure.
+const app = createApp(context);
+app.loadModule(module);
+// app.loadModule(someOtherModule);
+app.init();
+```
