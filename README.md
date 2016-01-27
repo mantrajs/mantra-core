@@ -18,10 +18,10 @@ npm i --save mantra-core react
 ### App API
 
 ```js
-// Here's a simple Mantra Module
 import MyComp from './myComp';
 import {createApp} from 'mantra-core';
 
+// Here's a simple Mantra Module
 const module = {
   routes(injectDeps) {
     const InjectedComp = injectDeps(MyComp);
