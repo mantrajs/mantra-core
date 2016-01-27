@@ -1,4 +1,4 @@
-#mantra-base
+#mantra-core
 
 Core API for Mantra.
 
