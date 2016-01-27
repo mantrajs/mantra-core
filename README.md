@@ -12,7 +12,7 @@ That's purely for the ease of use.
 ### Installation
 
 ```
-npm i --save mantra-base react
+npm i --save mantra-core react
 ```
 
 ### App API
