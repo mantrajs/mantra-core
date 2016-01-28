@@ -1,4 +1,4 @@
-#mantra-base
+#mantra-core
 
 Core API for Mantra.
 
@@ -12,16 +12,16 @@ That's purely for the ease of use.
 ### Installation
 
 ```
-npm i --save mantra-base react
+npm i --save mantra-core react
 ```
 
 ### App API
 
 ```js
-// Here's a simple Mantra Module
 import MyComp from './myComp';
 import {createApp} from 'mantra-core';
 
+// Here's a simple Mantra Module
 const module = {
   routes(injectDeps) {
     const InjectedComp = injectDeps(MyComp);
