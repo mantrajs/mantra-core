@@ -35,19 +35,11 @@ describe('App', () => {
       expect(app.loadModule.bind(app, module)).to.throw(errorMatch);
     });
 
-    it('module must have a load function', () => {
-      const app = new App({});
-      const module = {};
-      const errorMatch = /A module must contain a \.load\(\) function/;
-      expect(app.loadModule.bind(app, module)).to.throw(errorMatch);
-    });
-
     describe('has routes field', () => {
       it('should fail if routes is not a function', () => {
         const app = new App({});
         const module = {
-          routes: {},
-          load() {}
+          routes: {}
         };
         const errorMatch = /Module's routes field should be a function/;
         expect(app.loadModule.bind(app, module)).to.throw(errorMatch);
@@ -56,8 +48,7 @@ describe('App', () => {
       it('should save routes if it is a function', () => {
         const app = new App({});
         const module = {
-          routes() {},
-          load() {}
+          routes() {}
         };
 
         app.loadModule(module);
@@ -69,8 +60,7 @@ describe('App', () => {
       const app = new App({});
       app.actions = {bb: 10};
       const module = {
-        actions: {aa: 10},
-        load() {},
+        actions: {aa: 10}
       };
 
       app.loadModule(module);
@@ -80,33 +70,42 @@ describe('App', () => {
     it('should merge actions even actions is an empty field', () => {
       const app = new App({});
       app.actions = {bb: 10};
-      const module = {
-        load() {},
-      };
+      const module = {};
 
       app.loadModule(module);
       expect(app.actions).to.be.deep.equal({bb: 10});
     });
 
-    it('should call module.load with the context', done => {
-      const context = {};
-      const app = new App(context);
-      app.actions = {bb: 10};
-      const module = {
-        load(c) {
-          expect(c).to.be.equal(context);
-          done();
-        },
-      };
+    describe('has module.load', () => {
+      it('should throw an error if module.load is not a function', () => {
+        const context = {};
+        const app = new App(context);
+        const module = {
+          load: 'not a function'
+        };
 
-      app.loadModule(module);
+        const run = () => app.loadModule(module);
+        expect(run).to.throw(/module\.load should be a function/);
+      });
+
+      it('should call module.load with the context', done => {
+        const context = {};
+        const app = new App(context);
+        app.actions = {bb: 10};
+        const module = {
+          load(c) {
+            expect(c).to.be.equal(context);
+            done();
+          },
+        };
+
+        app.loadModule(module);
+      });
     });
 
     it('should mark the module as loaded', () => {
       const app = new App({});
-      const module = {
-        load() {}
-      };
+      const module = {};
 
       app.loadModule(module);
       expect(module.__loaded).to.be.equal(true);

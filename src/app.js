@@ -27,11 +27,6 @@ export default class App {
       throw new Error(message);
     }
 
-    if (typeof module.load !== 'function') {
-      const message = `A module must contain a .load() function.`;
-      throw new Error(message);
-    }
-
     if (module.routes) {
       if (typeof module.routes !== 'function') {
         const message = `Module's routes field should be a function.`;
@@ -47,7 +42,14 @@ export default class App {
       ...actions
     };
 
-    module.load(this.context);
+    if (module.load) {
+      if (typeof module.load !== 'function') {
+        const message = `module.load should be a function`;
+        throw new Error(message);
+      }
+      module.load(this.context);
+    }
+
     module.__loaded = true;
   }
 
