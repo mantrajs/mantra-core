@@ -1,5 +1,8 @@
 # Change Log
 
+### v1.2.0
+* Make module.load() optional.
+
 ### v1.1.0
 
 * Update react-komposer to 1.3.0.
