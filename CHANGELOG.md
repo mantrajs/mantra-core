@@ -1,5 +1,10 @@
 # Change Log
 
+### v1.3.0
+16-March-2016
+
+* Add support for React Native. This is basically by updating dependencies.
+
 ### v1.2.0
 * Make module.load() optional.
 
