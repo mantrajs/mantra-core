@@ -1,4 +1,8 @@
 # Change Log
+### v1.4.0
+30-March-2016
+
+* Update react-komposer to v1.7.0
 
 ### v1.3.0
 16-March-2016
