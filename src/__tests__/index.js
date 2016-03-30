@@ -21,7 +21,7 @@ describe('Module', () => {
   it('should have all functions from react-komposer', () => {
     const fnNames = [
       'compose', 'composeWithPromise', 'composeWithTracker',
-      'composeWithObservable', 'composeAll'
+      'composeWithObservable', 'composeAll', 'disable'
     ];
 
     fnNames.forEach(fnName => {
