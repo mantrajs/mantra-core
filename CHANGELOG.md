@@ -1,4 +1,10 @@
 # Change Log
+
+### v1.5.0
+09-April-2016
+
+* Updated deps to support React v15.x.x
+
 ### v1.4.0
 30-March-2016
 
