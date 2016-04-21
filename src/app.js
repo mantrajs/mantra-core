@@ -1,6 +1,7 @@
 import {
   injectDeps
 } from 'react-simple-di';
+import { combineReducers, createStore } from 'redux';
 
 export default class App {
   constructor(context) {
@@ -12,6 +13,7 @@ export default class App {
     this.context = context;
     this.actions = {};
     this._routeFns = [];
+    this._reducers = {};
   }
 
   loadModule(module) {
@@ -34,6 +36,20 @@ export default class App {
       }
 
       this._routeFns.push(module.routes);
+    }
+
+    // Load Redux reducers
+    if (module.reducers) {
+      const reducers = module.reducers;
+
+      if (typeof reducers !== 'object') {
+        const message = `Module's reducers field should be a map of reducers.`;
+        throw new Error(message);
+      }
+
+      for (const key of Object.keys(reducers)) {
+        this._reducers[key] = reducers[key];
+      }
     }
 
     const actions = module.actions || {};
@@ -64,7 +80,15 @@ export default class App {
       routeFn(inject, this.context, this.actions);
     }
 
+    // Create Redux store in the context
+    const reducers = this._reducers;
+    if (Object.keys(reducers).length > 0) {
+      const combined = combineReducers(reducers);
+      this.context.ReduxStore = createStore(combined);
+    }
+
     this._routeFns = [];
+    this._reducers = {};
     this.__initialized = true;
   }
 
