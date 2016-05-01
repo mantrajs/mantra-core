@@ -1,5 +1,9 @@
 # Change Log
 
+### v1.6.1
+01-May-2016
+
+* Fix action bounding issue with module.load
 ### v1.6.0
 01-May-2016
 
