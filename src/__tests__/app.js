@@ -56,6 +56,30 @@ describe('App', () => {
       });
     });
 
+    describe('has reducers field', () => {
+      it('should fail if reducers is not an object whose values are ' +
+        'reducer functions', () => {
+        const app = new App({});
+        const module = {
+          reducers() {}
+        };
+        const errorMatch = /Module's reducers field should/;
+        expect(app.loadModule.bind(app, module)).to.throw(errorMatch);
+      });
+
+      it('should save reducers', () => {
+        const app = new App({});
+        const module = {
+          reducers: {
+            foo() {}
+          }
+        };
+
+        app.loadModule(module);
+        expect(app._reducers).to.be.deep.equal(module.reducers);
+      });
+    });
+
     it('should merge actions with app wide global actions', () => {
       const app = new App({});
       app.actions = {bb: 10};
@@ -145,6 +169,19 @@ describe('App', () => {
       expect(calledRoutes).to.deep.equal([ 1, 2 ]);
     });
 
+    it('should create the Redux store from saved reducers', () => {
+      const app = new App({});
+      app._reducers = {
+        foo(state = {}) {
+          return state;
+        }
+      };
+
+      app.init();
+      expect(app.context.ReduxStore.getState()).to.deep.equal({
+        foo: {}
+      });
+    });
 
     it('should mark as initialized', () => {
       const app = new App({});

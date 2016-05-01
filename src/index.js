@@ -12,6 +12,9 @@ import {
 } from 'react-komposer';
 
 import App from './app';
+import {
+  default as _withRedux
+} from './redux_container';
 
 // export this module's functions
 export const createApp = (...args) => (new App(...args));
@@ -26,3 +29,6 @@ export const composeWithPromise = _composeWithPromise;
 export const composeWithObservable = _composeWithObservable;
 export const composeAll = _composeAll;
 export const disable = _disable;
+
+// export
+export const withRedux = _withRedux;
