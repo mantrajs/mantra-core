@@ -1,5 +1,10 @@
 # Change Log
 
+### v1.6.0
+01-May-2016
+
+* Add actions to module.load()
+
 ### v1.5.0
 09-April-2016
 
