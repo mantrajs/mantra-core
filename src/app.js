@@ -14,6 +14,25 @@ export default class App {
     this._routeFns = [];
   }
 
+  _bindContext(_actions) {
+    const actions = {};
+    for (let key in _actions) {
+      if (_actions.hasOwnProperty(key)) {
+        const actionMap = _actions[key];
+        const newActionMap = {};
+        for (let actionName in actionMap) {
+          if (actionMap.hasOwnProperty(actionName)) {
+            newActionMap[actionName] =
+              actionMap[actionName].bind(null, this.context);
+          }
+        }
+        actions[key] = newActionMap;
+      }
+    }
+
+    return actions;
+  }
+
   loadModule(module) {
     this._checkForInit();
 
@@ -49,7 +68,8 @@ export default class App {
       }
 
       // This module has no access to the actions loaded after this module.
-      module.load(this.context, this.actions);
+      const boundedActions = this._bindContext(this.actions);
+      module.load(this.context, boundedActions);
     }
 
     module.__loaded = true;

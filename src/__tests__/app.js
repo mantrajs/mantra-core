@@ -89,14 +89,22 @@ describe('App', () => {
       });
 
       it('should call module.load with context and actions', done => {
-        const context = {};
+        const context = {aa: 10};
         const app = new App(context);
-        app.actions = {bb: 10};
+        app.actions = {
+          hello: {
+            aa(c, a) {
+              expect(c).to.deep.equal(context);
+              expect(a).to.be.equal(20);
+              done();
+            }
+          }
+        };
+
         const module = {
-          load(c, a) {
+          load(c, actions) {
             expect(c).to.be.equal(context);
-            expect(a).to.deep.equal(app.actions);
-            done();
+            actions.hello.aa(20);
           },
         };
 
