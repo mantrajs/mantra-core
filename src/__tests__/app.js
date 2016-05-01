@@ -88,13 +88,14 @@ describe('App', () => {
         expect(run).to.throw(/module\.load should be a function/);
       });
 
-      it('should call module.load with the context', done => {
+      it('should call module.load with context and actions', done => {
         const context = {};
         const app = new App(context);
         app.actions = {bb: 10};
         const module = {
-          load(c) {
+          load(c, a) {
             expect(c).to.be.equal(context);
+            expect(a).to.deep.equal(app.actions);
             done();
           },
         };

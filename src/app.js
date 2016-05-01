@@ -47,7 +47,9 @@ export default class App {
         const message = `module.load should be a function`;
         throw new Error(message);
       }
-      module.load(this.context);
+
+      // This module has no access to the actions loaded after this module.
+      module.load(this.context, this.actions);
     }
 
     module.__loaded = true;
