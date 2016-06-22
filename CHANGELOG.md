@@ -1,5 +1,9 @@
 # Change Log
 
+### v1.7.0
+
+* Update react-storybook to v1.9.0 to support stubbing.
+
 ### v1.6.1
 01-May-2016
 
