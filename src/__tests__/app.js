@@ -76,6 +76,15 @@ describe('App', () => {
       expect(app.actions).to.be.deep.equal({bb: 10});
     });
 
+    it('should merge actions if namespaced', () => {
+      const app = new App({});
+      app.actions = {core: {bb: 10}};
+      const module = {};
+
+      app.loadModule(module);
+      expect(app.actions).to.be.deep.equal({core: {bb: 10}});
+    });
+
     describe('has module.load', () => {
       it('should throw an error if module.load is not a function', () => {
         const context = {};
@@ -105,6 +114,31 @@ describe('App', () => {
           load(c, actions) {
             expect(c).to.be.equal(context);
             actions.hello.aa(20);
+          },
+        };
+
+        app.loadModule(module);
+      });
+
+      it('should call module.load with context and actions when namespaced', done => {
+        const context = {aa: 10};
+        const app = new App(context);
+        app.actions = {
+          core: {
+            hello: {
+              aa(c, a) {
+                expect(c).to.deep.equal(context);
+                expect(a).to.be.equal(20);
+                done();
+              }
+            }
+          }
+        };
+
+        const module = {
+          load(c, actions) {
+            expect(c).to.be.equal(context);
+            actions.core.hello.aa(20);
           },
         };
 

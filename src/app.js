@@ -16,17 +16,33 @@ export default class App {
 
   _bindContext(_actions) {
     const actions = {};
-    for (let key in _actions) {
-      if (_actions.hasOwnProperty(key)) {
-        const actionMap = _actions[key];
-        const newActionMap = {};
-        for (let actionName in actionMap) {
-          if (actionMap.hasOwnProperty(actionName)) {
-            newActionMap[actionName] =
-              actionMap[actionName].bind(null, this.context);
+
+    for (let namespace in _actions) {
+      if (_actions.hasOwnProperty(namespace)) {
+        actions[namespace] = {};
+        const namespaceActions = _actions[namespace];
+        for (var namespaceAction in namespaceActions) {
+          if (namespaceActions.hasOwnProperty(namespaceAction)) {
+            actions[namespace][namespaceAction] = {};
+            var actionFuncs = namespaceActions[namespaceAction];
+            var actionFuncsExist = false;
+            for (var actionFunc in actionFuncs) {
+              if (actionFuncs.hasOwnProperty(actionFunc)
+                && typeof actionFuncs[ actionFunc ] === 'function'
+              ) {
+                actions[namespace][namespaceAction][actionFunc]
+                  = actionFuncs[actionFunc].bind(null, this.context);
+                actionFuncsExist = true;
+              }
+            }
+            if (! actionFuncsExist
+              && actions.hasOwnProperty(namespace)
+              && typeof actionFuncs === 'function'
+            ) {
+              actions[namespace][namespaceAction] = actionFuncs.bind(null, this.context);
+            }
           }
         }
-        actions[key] = newActionMap;
       }
     }
 
