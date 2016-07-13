@@ -26,7 +26,9 @@ describe('Module', () => {
       'composeWithObservable',
       'composeWithMobx',
       'composeAll',
-      'disable'
+      'disable',
+      'setDefaultErrorComponent',
+      'setDefaultLoadingComponent'
     ];
 
     fnNames.forEach(fnName => {

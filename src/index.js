@@ -10,6 +10,8 @@ import {
   composeWithMobx as _composeWithMobx,
   composeAll as _composeAll,
   disable as _disable,
+  setDefaultErrorComponent as _setDefaultErrorComponent,
+  setDefaultLoadingComponent as _setDefaultLoadingComponent,
 } from 'react-komposer';
 
 import App from './app';
@@ -28,3 +30,5 @@ export const composeWithObservable = _composeWithObservable;
 export const composeWithMobx = _composeWithMobx;
 export const composeAll = _composeAll;
 export const disable = _disable;
+export const setDefaultErrorComponent = _setDefaultErrorComponent;
+export const setDefaultLoadingComponent = _setDefaultLoadingComponent;
