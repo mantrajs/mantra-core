@@ -12,6 +12,7 @@ import {
   disable as _disable,
   setDefaultErrorComponent as _setDefaultErrorComponent,
   setDefaultLoadingComponent as _setDefaultLoadingComponent,
+  setStubbingMode as _setStubbingMode,
 } from 'react-komposer';
 
 import App from './app';
@@ -32,3 +33,4 @@ export const composeAll = _composeAll;
 export const disable = _disable;
 export const setDefaultErrorComponent = _setDefaultErrorComponent;
 export const setDefaultLoadingComponent = _setDefaultLoadingComponent;
+export const setStubbingMode = _setStubbingMode;

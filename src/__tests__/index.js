@@ -28,7 +28,8 @@ describe('Module', () => {
       'composeAll',
       'disable',
       'setDefaultErrorComponent',
-      'setDefaultLoadingComponent'
+      'setDefaultLoadingComponent',
+      'setStubbingMode'
     ];
 
     fnNames.forEach(fnName => {
