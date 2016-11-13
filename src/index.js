@@ -8,6 +8,7 @@ import {
   composeWithPromise as _composeWithPromise,
   composeWithObservable as _composeWithObservable,
   composeAll as _composeAll,
+  merge as _merge,
   disable as _disable,
 } from 'react-komposer';
 
@@ -25,4 +26,5 @@ export const composeWithTracker = _composeWithTracker;
 export const composeWithPromise = _composeWithPromise;
 export const composeWithObservable = _composeWithObservable;
 export const composeAll = _composeAll;
+export const merge = _merge;
 export const disable = _disable;
